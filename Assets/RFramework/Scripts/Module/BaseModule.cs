@@ -4,26 +4,16 @@ using UnityEngine;
 
 namespace RFramework
 {
-    public class BaseModule
+    public abstract class BaseModule
     {
-        internal virtual void OnStart()
-        {
-            
-        }
-
-        internal virtual void OnUpdate()
-        {
-            
-        }
-
-        internal virtual void OnLateUpdate()
-        {
-            
-        }
-
-        internal virtual void OnDestroy()
-        {
-            
-        }
+        public abstract void OnStart();
+        public abstract void OnUpdate();
+        public abstract void OnFinishStart();
+        public abstract void OnDestroy();
+    }
+    
+    public interface LateUpdateModuleInterface
+    {
+        void OnLateUpdate();
     }
 }

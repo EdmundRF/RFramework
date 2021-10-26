@@ -1,22 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    private Main m_Instance;
+    private Main m_instance;
+    public Main Instance => m_instance;
 
-    public Main MInstance => m_Instance;
+    private ModuleManager m_moduleManager;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void MainAwake()
     {
+        m_moduleManager = new ModuleManager();
         
+        /// 注册Module ///
+        m_moduleManager.AddModule(LuaModule.Instance);
+        
+        //////
+    }
+
+    private void Start()
+    {
+        m_moduleManager.StartModule();
+    }
+
+    private void Update()
+    {
+        m_moduleManager.UpdateModule();
+    }
+
+    private void LateUpdate()
+    {
+        m_moduleManager.LateUpdateModule();
     }
 }

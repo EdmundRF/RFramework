@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstanceManager
+public interface AsyncLoader
 {
-    
+    IEnumerator LoadAsync();
+
+    bool IsComplete();
 }
