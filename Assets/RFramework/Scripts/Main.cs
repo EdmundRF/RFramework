@@ -22,12 +22,12 @@ public class Main : MonoBehaviour
         /// 注册Module ///
         m_moduleManager.AddModule(LuaModule.Instance);
         
-        //////
+        ///===========///
     }
 
     private void Start()
     {
-        m_moduleManager.StartModule();
+        
     }
 
     private void Update()
