@@ -18,9 +18,7 @@ public class LuaModule : BaseModule, LateUpdateModuleInterface
         get
         {
             if (m_instance == null)
-            {
                 m_instance = new LuaModule();
-            }
             return m_instance;
         }
     }
@@ -39,14 +37,15 @@ public class LuaModule : BaseModule, LateUpdateModuleInterface
         /// 加载全局变量 ///
         m_luaEnv.DoString("require('System.Global')");
         m_luaEnv.DoString("require('Game.Main')");
-        
-        //////
+        //m_luaEnv.DoString("require('...')");
         
         /// 绑定Lua那边的Update LateUpdate Destroy
         m_luaEnv.Global.Get("UpdateMain", out m_updateFun);
         m_luaEnv.Global.Get("LateUpdateMain", out m_lateUpdateFun);
         m_luaEnv.Global.Get("DestroyMain", out m_destroyFun);
-        
+
+        IsComplete = true;
+        m_isUpdate = true;
     }
 
     public override void OnUpdate()

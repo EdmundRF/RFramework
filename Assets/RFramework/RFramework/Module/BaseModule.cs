@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RFramework
+﻿namespace RFramework
 {
     public abstract class BaseModule
     {
