@@ -6,14 +6,15 @@ using RFramework;
 
 public class Main : MonoBehaviour
 {
-    private Main m_instance;
-    public Main Instance => m_instance;
+    private static Main m_instance;
+    public static Main Instance => m_instance;
 
     private ModuleManager m_moduleManager;
 
     private void Awake()
     {
         m_instance = this;
+        MainAwake();
     }
 
     void MainAwake()
@@ -44,5 +45,10 @@ public class Main : MonoBehaviour
     private void OnDestroy()
     {
         m_moduleManager.DestroyModules();
+    }
+    
+    public void StartCoroutine(IEnumerator enumerator)
+    {
+        StartCoroutine(enumerator);
     }
 }
