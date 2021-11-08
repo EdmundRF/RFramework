@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RFramework;
 using UnityEngine;
 
 public class AssetObjectLoader : AsyncLoader
@@ -19,6 +20,7 @@ public class AssetObjectLoader : AsyncLoader
     private AssetBundleLoader m_BundleLoader;      // 所属BundleLoader
 
     private Object m_Asset;
+    private List<GameObject> m_instObj;
 
     public AssetObjectLoader(string name, AssetBundleLoader loader)
     {
@@ -96,5 +98,74 @@ public class AssetObjectLoader : AsyncLoader
                 m_State = AssetObjectLoadState.Failed;
             }
         }
+    }
+
+    public void LoadSync()
+    {
+        if (m_State != AssetObjectLoadState.UnLoad) return;
+        m_Asset = m_BundleLoader.Bundle.LoadAsset(m_AssetName, m_Type);
+
+        if (m_Asset != null)
+        {
+            m_State = AssetObjectLoadState.Load;
+        }
+        else
+        {
+            m_State = AssetObjectLoadState.Failed;
+        }
+    }
+
+    #region Instantiate实例化
+    
+    public GameObject Instantiate()
+    {
+        if (m_State != AssetObjectLoadState.Load || m_Type != typeof(GameObject))
+        {
+            LogManager.LogError("== Instantiate Error == " + m_AssetName);
+        }
+        var obj = GameObject.Instantiate(m_Asset as GameObject);
+        m_instObj.Add(obj);
+        return obj;
+    }
+    
+    public GameObject Instantiate(Transform parent)
+    {
+        if (m_State != AssetObjectLoadState.Load || m_Type != typeof(GameObject))
+        {
+            LogManager.LogError("== Instantiate Error == " + m_AssetName);
+        }
+        var obj = GameObject.Instantiate(m_Asset as GameObject, parent);
+        m_instObj.Add(obj);
+        return obj;
+    }
+    
+    public GameObject Instantiate(Vector3 pos, Quaternion qua)
+    {
+        if (m_State != AssetObjectLoadState.Load || m_Type != typeof(GameObject))
+        {
+            LogManager.LogError("== Instantiate Error == " + m_AssetName);
+        }
+        var obj = GameObject.Instantiate(m_Asset as GameObject, pos, qua);
+        m_instObj.Add(obj);
+        return obj;
+    }
+    
+    public GameObject Instantiate(Vector3 pos, Quaternion qua, Transform parent)
+    {
+        if (m_State != AssetObjectLoadState.Load || m_Type != typeof(GameObject))
+        {
+            LogManager.LogError("== Instantiate Error == " + m_AssetName);
+        }
+        var obj = GameObject.Instantiate(m_Asset as GameObject, pos, qua, parent);
+        m_instObj.Add(obj);
+        return obj;
+    }
+    
+    #endregion
+
+    public bool CheckNoUsed()
+    {
+        m_instObj.ClearNull();
+        return m_instObj.Count == 0;
     }
 }

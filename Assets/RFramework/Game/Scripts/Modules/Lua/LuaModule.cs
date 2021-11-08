@@ -13,15 +13,7 @@ public delegate int CSharpCallLuaFun();
 public class LuaModule : BaseModule, LateUpdateModuleInterface
 {
     private static LuaModule m_instance;
-    public static LuaModule Instance
-    {
-        get
-        {
-            if (m_instance == null)
-                m_instance = new LuaModule();
-            return m_instance;
-        }
-    }
+    public static LuaModule Instance => m_instance ?? (m_instance = new LuaModule());
 
     protected CSharpCallLuaFun m_updateFun;
     protected CSharpCallLuaFun m_lateUpdateFun;

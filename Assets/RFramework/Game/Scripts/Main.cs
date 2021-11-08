@@ -13,7 +13,7 @@ public class Main : MonoBehaviour
 
     private void Awake()
     {
-        
+        m_instance = this;
     }
 
     void MainAwake()

@@ -8,15 +8,7 @@ namespace RFramework
 
         private static EventSystem m_instance;
 
-        public static EventSystem Instance
-        {
-            get
-            {
-                if (m_instance == null)
-                    m_instance = new EventSystem();
-                return m_instance;
-            }
-        }
+        public static EventSystem Instance => m_instance ?? (m_instance = new EventSystem());
 
         private Dictionary<int, List<EventCallBack>> m_eventDic = new Dictionary<int, List<EventCallBack>>();
 

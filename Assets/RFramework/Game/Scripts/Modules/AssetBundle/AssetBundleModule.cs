@@ -6,15 +6,7 @@ using UnityEngine;
 public class AssetBundleModule : BaseModule
 {
     private static AssetBundleModule m_instance;
-    public static AssetBundleModule Instance
-    {
-        get
-        {
-            if(m_instance == null)
-                m_instance = new AssetBundleModule();
-            return m_instance;
-        }
-    }
+    public static AssetBundleModule Instance => m_instance ?? (m_instance = new AssetBundleModule());
 
     public delegate void LoadCompleteCallback(AssetObjectLoader obj);
     
